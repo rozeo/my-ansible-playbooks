@@ -1,0 +1,5 @@
+[docker-servers]
+127.0.0.1
+
+[docker-servers:vars]
+ansible_port=11111

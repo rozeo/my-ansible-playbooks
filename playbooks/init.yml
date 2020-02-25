@@ -1,0 +1,46 @@
+- hosts: all
+  # connection: local
+  user: root
+
+  tasks:
+  - name: update apt repository
+    apt:
+        update_cache: yes
+
+  - name: upgrade current packages
+    apt:
+        upgrade: yes
+
+  - name: update apt repository & install packages
+    apt:
+       name:
+            - vim
+            - curl
+            - gcc
+            - git
+            - konsole
+            - libxml2-dev
+            - libkrb5-dev
+            - libssl-dev
+            - libsqlite3-dev
+            - libbz2-dev
+            - zlib1g-dev
+            - libcurl4-openssl-dev
+            - libpng-dev
+            - libjpeg-dev
+            - libonig-dev
+            - libreadline-dev
+            - libtidy-dev
+            - libxslt-dev
+            - libzip-dev
+
+  - name: install phpenv
+    shell: rm -rf ~/.phpenv ~/.bash_profile && \
+           git clone https://github.com/phpenv/phpenv.git ~/.phpenv && \
+           echo 'export PATH=$HOME/.phpenv/bin:$PATH' >> ~/.bash_profile && \
+           echo 'eval "$(phpenv init)"' >> ~/.bash_profile && \
+           git clone https://github.com/php-build/php-build $(~/.phpenv/bin/phpenv root)/plugins/php-build
+           
+  - name: install php
+    shell: ~/.phpenv/bin/phpenv install 7.4.2 && ~/.phpenv/bin/phpenv global 7.4.2 
+
